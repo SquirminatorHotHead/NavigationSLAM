@@ -70,8 +70,8 @@ class MapGenerator
 
       fprintf(out, "P5\n# CREATOR: Map_generator.cpp %.3f m/pix\n%d %d\n255\n",
               map->info.resolution, map->info.width, map->info.height);
-      for(unsigned int y = 0; y < map->info.height; y++) {
-        for(unsigned int x = 0; x < map->info.width; x++) {
+/*        for(unsigned int y = 0; y < map->info.height; y++) {
+       *for(unsigned int x = 0; x < map->info.width; x++) {
           unsigned int i = x + (map->info.height - y - 1) * map->info.width;
           if (map->data[i] == 0) { //occ [0,0.1)
             fputc(254, out);
@@ -80,7 +80,15 @@ class MapGenerator
           } else { //occ [0.1,0.65]
             fputc(205, out);
           }
-        }
+       }
+      }
+ */
+     for(unsigned int y = 0; y < map->info.height; y++) {
+      for(unsigned int x = 0; x < map->info.width; x++) {
+      unsigned int i = x + (map->info.height - y - 1) * map->info.width;
+      int pixel = (double)(100.0-map->data[i]) *2.54;
+      fputc(pixel, out);
+       }
       }
 
       fclose(out);
